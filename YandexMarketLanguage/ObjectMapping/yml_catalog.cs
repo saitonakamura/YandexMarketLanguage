@@ -9,8 +9,10 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public yml_catalog() { }
 
+        // TODO move to _field in constructor
         public yml_catalog(DateTime date, shop shop)
         {
+            // ReSharper disable once UseNameofExpression
             if (shop == null)
                 throw new ArgumentNullException("shop");
 

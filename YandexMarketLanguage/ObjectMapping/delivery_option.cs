@@ -10,6 +10,8 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public delivery_option() { }
 
+        // TODO move to _field in constructor
+        // TODO move to Contracts for invariants defence
         public delivery_option(int cost, int workDaysFrom, int workDaysTo, int? order_before = null)
             : this(cost, order_before)
         {
@@ -25,9 +27,11 @@ namespace YandexMarketLanguage.ObjectMapping
             if ((workDaysTo - workDaysTo) > 3)
                 throw new ArgumentException("period between workDaysTo and workDaysFrom must be <= 3");
 
+            // ReSharper disable once UseStringInterpolation
             this.days = string.Format("{0}-{1}", workDaysFrom, workDaysTo);
         }
 
+        // TODO move to _field in constructor
         public delivery_option(int cost, int workDays, int? order_before = null)
             : this(cost, order_before)
         {
@@ -37,6 +41,7 @@ namespace YandexMarketLanguage.ObjectMapping
             this.days = workDays.ToString();
         }
 
+        // TODO move to _field in constructor
         private delivery_option(int cost, int? order_before = null)
         {
             if (order_before.HasValue)
@@ -59,7 +64,7 @@ namespace YandexMarketLanguage.ObjectMapping
         [XmlAttribute] 
         public string days;
 
-        [XmlAttribute] 
+        [XmlAttribute("order-before")]
         public string order_before { get { return orderBeforeField.HasValue ? orderBeforeField.ToString() : null; } set { orderBeforeField = int.Parse(value); } }
 
         [XmlIgnore]

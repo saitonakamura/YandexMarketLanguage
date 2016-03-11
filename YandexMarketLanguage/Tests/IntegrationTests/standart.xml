@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<yml_catalog date="2010-04-01 17:05">
+  <shop>
+    <name>BestShop</name>
+    <company>Best online seller Inc.</company>
+    <url>http://best.seller.ru/</url>
+    <platform>CMS</platform>
+    <version>2.3</version>
+    <agency>Agency</agency>
+    <email>CMS@CMS.ru</email>
+    <currencies>
+      <currency id="RUR" rate="1" />
+      <currency id="EUR" rate="CBRF" />
+    </currencies>
+    <categories>
+      <category id="1">Книги</category>
+      <category id="2" parentId="1">Детективы</category>
+    </categories>
+    <delivery-options>
+      <option cost="300" days="1" />
+      <option cost="0" days="5-7" order-before="14" />
+    </delivery-options>
+    <cpa>0</cpa>
+    <offers>
+      <offer id="12346">
+        <price>600</price>
+        <currencyId>EUR</currencyId>
+        <categoryId>1</categoryId>
+        <name>Наручные часы Casio A1234567B</name>
+      </offer>
+      <offer id="12341">
+        <price>16800</price>
+        <currencyId>RUR</currencyId>
+        <categoryId>2</categoryId>
+        <name>Принтер НP Deskjet D2663</name>
+      </offer>
+    </offers>
+  </shop>
+</yml_catalog>

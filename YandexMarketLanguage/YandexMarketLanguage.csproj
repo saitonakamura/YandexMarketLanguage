@@ -59,12 +59,18 @@
     <Compile Include="ObjectMapping\offer.cs" />
     <Compile Include="ObjectMapping\shop.cs" />
     <Compile Include="ObjectMapping\yml_catalog.cs" />
-    <Compile Include="Serializer.cs" />
+    <Compile Include="Tests\IntegrationTests\IntegrationTests.cs" />
+    <Compile Include="YmlSerializer.cs" />
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tests\IntegrationTests\standart.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

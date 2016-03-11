@@ -3,13 +3,16 @@ using System.Xml.Serialization;
 
 namespace YandexMarketLanguage.ObjectMapping
 {
+    // TODO do other fields
+    // TODO do derived class for different model definitions
     [Serializable]
     public class offer
     {
         [Obsolete]
         public offer() { }
 
-        public offer(string id, decimal price, CurrencyEnum currency, int categoryId, string name, string type = null, bool? available = null)
+        // TODO move to _field in constructor
+        public offer(string id, decimal price, CurrencyEnum currencyId, int categoryId, string name, string type = null, bool? available = null)
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("id must not be empty");
@@ -19,7 +22,7 @@ namespace YandexMarketLanguage.ObjectMapping
             this.availableField = available;
 
             this.price = price;
-            this.currency = currency;
+            this.currencyId = currencyId;
             this.categoryId = categoryId;
             this.name = name;
         }
@@ -38,7 +41,7 @@ namespace YandexMarketLanguage.ObjectMapping
 
         public decimal price;
 
-        public CurrencyEnum currency;
+        public CurrencyEnum currencyId;
 
         public int categoryId;
 
