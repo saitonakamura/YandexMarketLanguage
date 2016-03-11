@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using FluentAssertions;
@@ -38,24 +39,10 @@ namespace YandexMarketLanguage.Tests
                     {
                         new offer("12346", 600, CurrencyEnum.USD, 1, "Наручные часы Casio A1234567B"),
                         new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663"),
-                    })
-                {
-                    platform = "CMS",
-                    version = "2.3",
-                    agency = "Agency",
-                    email = "CMS@CMS.ru",
-                    cpa = "0",
-                });
+                    }));
             var serializer = new Serializer();
 
             var doc = serializer.Serialize(ymlCatalog);
-
-            /*var str = doc.ToString();
-
-            var wr = new StringWriter();
-            doc.Save(wr);
-
-            var str3 = wr.GetStringBuilder().ToString();*/
 
             //Assert.NotNull(doc.Declaration.);
             doc.Should().HaveRoot("yml_catalog");
@@ -92,14 +79,9 @@ namespace YandexMarketLanguage.Tests
 
             var category1 = categories.SingleOrDefault(x => x.Attribute("id").Value == 1.ToString());
             Assert.NotNull(category1, "category1 != null");
-            category1.Should().HaveAttribute("id", "1");
-            category1.Should().HaveValue("Книги");
 
             var category2 = categories.SingleOrDefault(x => x.Attribute("id").Value == 2.ToString());
             Assert.NotNull(category2, "category2 != null");
-            category2.Should().HaveAttribute("id", "2");
-            category2.Should().HaveAttribute("parentId", "1");
-            category2.Should().HaveValue("Детективы");
 
             shop.Should().HaveElement("delivery-options").Which.Should().HaveElement("option");
             // ReSharper disable once PossibleNullReferenceException
@@ -130,37 +112,67 @@ namespace YandexMarketLanguage.Tests
 
             var offer2 = offers.SingleOrDefault(x => x.Attribute("id").Value == 12341.ToString());
             Assert.NotNull(offer2, "offer2 != null");
+
+            var wr = new StringWriter();
+            doc.Save(wr);
+            var str3 = wr.GetStringBuilder().ToString();
+            Assert.IsNotEmpty(str3);
         }
 
         [Test]
-        public void TestDeleveryOption1()
+        public void TestCategory1()
         {
-            var _deliveryOption = new delivery_option(300, 1);
+            var category = new category(1, "Книги");
 
-            var deliveryOption = new Serializer().Serialize(_deliveryOption).Root;
+            var xCategory = new Serializer().Serialize(category).Root;
 
-            Assert.NotNull(deliveryOption, "deliveryOption != null");
-            deliveryOption.Should().HaveAttribute("cost", "300");
-            deliveryOption.Should().HaveAttribute("days", "1");
+            Assert.NotNull(xCategory, "xCategory != null");
+            xCategory.Should().HaveAttribute("id", "1");
+            xCategory.Should().HaveValue("Книги");
         }
 
         [Test]
-        public void TestDeleveryOption2()
+        public void TestCategory2()
         {
-            var _deliveryOption = new delivery_option(0, 5, 7, 14);
+            var category = new category(2, "Детективы", 1);
 
-            var deliveryOption = new Serializer().Serialize(_deliveryOption).Root;
+            var xCategory = new Serializer().Serialize(category).Root;
 
-            Assert.NotNull(deliveryOption, "deliveryOption != null");
-            deliveryOption.Should().HaveAttribute("cost", "0");
-            deliveryOption.Should().HaveAttribute("days", "5-7");
-            deliveryOption.Should().HaveAttribute("order_before", "14");
+            Assert.NotNull(xCategory, "xCategory != null");
+            xCategory.Should().HaveAttribute("id", "2");
+            xCategory.Should().HaveAttribute("parentId", "1");
+            xCategory.Should().HaveValue("Детективы");
+        }
+
+        [Test]
+        public void TestDeliveryOption1()
+        {
+            var deliveryOption = new delivery_option(300, 1);
+
+            var xDeliveryOption = new Serializer().Serialize(deliveryOption).Root;
+
+            Assert.NotNull(xDeliveryOption, "xDeliveryOption != null");
+            xDeliveryOption.Should().HaveAttribute("cost", "300");
+            xDeliveryOption.Should().HaveAttribute("days", "1");
+        }
+
+        [Test]
+        public void TestDeliveryOption2()
+        {
+            var deliveryOption = new delivery_option(0, 5, 7, 14);
+
+            var xDeliveryOption = new Serializer().Serialize(deliveryOption).Root;
+
+            Assert.NotNull(xDeliveryOption, "xDeliveryOption != null");
+            xDeliveryOption.Should().HaveAttribute("cost", "0");
+            xDeliveryOption.Should().HaveAttribute("days", "5-7");
+            xDeliveryOption.Should().HaveAttribute("order_before", "14");
         }
 
         [Test]
         public void TestShop()
         {
-            var _shop = new shop("BestShop",
+            var shop = new shop("BestShop",
                 "Best online seller Inc.",
                 "http://best.seller.ru/",
                 new[]
@@ -191,20 +203,20 @@ namespace YandexMarketLanguage.Tests
                 cpa = "0",
             };
 
-            var shop = new Serializer().Serialize(_shop).Root;
+            var xShop = new Serializer().Serialize(shop).Root;
 
-            Assert.NotNull(shop, "shop != null");
-            shop.Should().HaveElement("name").Which.Should().HaveValue("BestShop");
-            shop.Should().HaveElement("company").Which.Should().HaveValue("Best online seller Inc.");
-            shop.Should().HaveElement("url").Which.Should().HaveValue("http://best.seller.ru/");
+            Assert.NotNull(xShop, "xShop != null");
+            xShop.Should().HaveElement("name").Which.Should().HaveValue("BestShop");
+            xShop.Should().HaveElement("company").Which.Should().HaveValue("Best online seller Inc.");
+            xShop.Should().HaveElement("url").Which.Should().HaveValue("http://best.seller.ru/");
 
-            shop.Should().HaveElement("platform").Which.Should().HaveValue("CMS");
-            shop.Should().HaveElement("version").Which.Should().HaveValue("2.3");
-            shop.Should().HaveElement("agency").Which.Should().HaveValue("Agency");
-            shop.Should().HaveElement("email").Which.Should().HaveValue("CMS@CMS.ru");
-            shop.Should().HaveElement("cpa").Which.Should().HaveValue("0");
+            xShop.Should().HaveElement("platform").Which.Should().HaveValue("CMS");
+            xShop.Should().HaveElement("version").Which.Should().HaveValue("2.3");
+            xShop.Should().HaveElement("agency").Which.Should().HaveValue("Agency");
+            xShop.Should().HaveElement("email").Which.Should().HaveValue("CMS@CMS.ru");
+            xShop.Should().HaveElement("cpa").Which.Should().HaveValue("0");
 
-            shop.Should().HaveElement("currencies").Which.Should().HaveElement("currency");
+            xShop.Should().HaveElement("currencies").Which.Should().HaveElement("currency");
         }
 
         [Test]
@@ -225,9 +237,9 @@ namespace YandexMarketLanguage.Tests
         [Test]
         public void TestOffer2()
         {
-            var _offer = new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663");
+            var offer = new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663");
 
-            var xOffer = new Serializer().Serialize(_offer).Root;
+            var xOffer = new Serializer().Serialize(offer).Root;
 
             Assert.NotNull(xOffer, "xOffer != null");
             xOffer.Should().HaveAttribute("id", "12341");
