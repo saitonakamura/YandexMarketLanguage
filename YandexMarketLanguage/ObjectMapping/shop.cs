@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 
 namespace YandexMarketLanguage.ObjectMapping
@@ -10,47 +9,40 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public shop() { }
 
-        public shop(string name, string company, string url, currency[] currencies)
+        public shop(string name, string company, string url, currency[] currencies, category[] categories, delivery_option[] delivery_options, offer[] offers)
         {
             this.name = name;
             this.company = company;
             this.url = url;
             this.currencies = currencies;
+            this.categories = categories;
+            this.delivery_options = delivery_options;
+            this.offers = offers;
         }
 
-        [XmlElement]
         public string name;
 
-        [XmlElement]
         public string company;
 
-        [XmlElement]
         public string url;
 
-        [XmlElement]
         public string platform;
 
-        [XmlElement]
         public string version;
 
-        [XmlElement]
         public string agency;
 
-        [XmlElement]
         public string email;
 
         public currency[] currencies;
 
-        [XmlElement]
-        public string categories;
+        public category[] categories;
 
-        [XmlElement("delivery-options")]
-        public string delivery_options;
+        [XmlArray("delivery-options")]
+        public delivery_option[] delivery_options;
 
-        [XmlElement]
         public string cpa;
 
-        [XmlElement]
-        public string offers;
+        public offer[] offers;
     }
 }

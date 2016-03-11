@@ -21,7 +21,6 @@ namespace YandexMarketLanguage.ObjectMapping
         [XmlAttribute]
         public string date { get { return dateField.ToString("yyyy-MM-dd HH:mm"); } set { dateField = DateTime.Parse(value); } }
 
-        [XmlElement]
         public shop shop;
 
         [XmlIgnore]

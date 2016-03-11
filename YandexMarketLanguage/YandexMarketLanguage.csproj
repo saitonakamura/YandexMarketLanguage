@@ -53,7 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectMapping\category.cs" />
     <Compile Include="ObjectMapping\currency.cs" />
+    <Compile Include="ObjectMapping\delivery_option.cs" />
+    <Compile Include="ObjectMapping\offer.cs" />
     <Compile Include="ObjectMapping\shop.cs" />
     <Compile Include="ObjectMapping\yml_catalog.cs" />
     <Compile Include="Serializer.cs" />
