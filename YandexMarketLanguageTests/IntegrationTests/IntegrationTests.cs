@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
 
-namespace YandexMarketLanguage.Tests.IntegrationTests
+namespace YandexMarketLanguageTests.IntegrationTests
 {
     [TestFixture]
     public class IntegrationTests
@@ -46,38 +46,30 @@ namespace YandexMarketLanguage.Tests.IntegrationTests
             };
 
             var ymlCatalog = new yml_catalog(new DateTime(2010, 04, 01, 17, 05, 00), shop);
-            var serializer = new YmlSerializer();
 
-            var doc = serializer.Serialize(ymlCatalog);
-
-            string xmlStringFromObject;
-
-            using (var wr = new Utf8StringWriter())
-            {
-                doc.Save(wr);
-                xmlStringFromObject = wr.GetStringBuilder().ToString();
-            }
+            var xmlStringFromObject = new YmlSerializer().ToXmlString(ymlCatalog);
 
             xmlStringFromObject.Should().NotBeNullOrWhiteSpace();
 
-            string xmlStringStandart;
-
-            // ReSharper disable once AssignNullToNotNullAttribute
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("YandexMarketLanguage.Tests.IntegrationTests.standart.xml"))
-            using (var reader = new StreamReader(stream))
-            {
-                xmlStringStandart = reader.ReadToEnd();
-            }
+            var xmlStringStandart = ReadXmlFromAssembly();
 
             xmlStringStandart.Should().NotBeNullOrWhiteSpace();
 
             xmlStringFromObject.ShouldBeEquivalentTo(xmlStringStandart);
         }
 
-        public sealed class Utf8StringWriter : StringWriter
+        private static string ReadXmlFromAssembly()
         {
-            // ReSharper disable once ConvertPropertyToExpressionBody
-            public override Encoding Encoding { get { return Encoding.UTF8; } }
+            string xmlStringStandart;
+            // ReSharper disable once AssignNullToNotNullAttribute
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("YandexMarketLanguageTests.IntegrationTests.standart.xml"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    xmlStringStandart = reader.ReadToEnd();
+                }
+            }
+            return xmlStringStandart;
         }
     }
 }

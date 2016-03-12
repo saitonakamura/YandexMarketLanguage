@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class OfferTests
@@ -12,7 +13,7 @@ namespace YandexMarketLanguage.Tests
         {
             var _offer = new offer("12346", 600, CurrencyEnum.USD, 1, "Наручные часы Casio A1234567B");
 
-            var xOffer = new YmlSerializer().Serialize(_offer).Root;
+            var xOffer = new YmlSerializer().ToXDocument(_offer).Root;
 
             xOffer.Should().NotBeNull();
             xOffer.Should().HaveAttribute("id", "12346");
@@ -27,7 +28,7 @@ namespace YandexMarketLanguage.Tests
         {
             var offer = new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663");
 
-            var xOffer = new YmlSerializer().Serialize(offer).Root;
+            var xOffer = new YmlSerializer().ToXDocument(offer).Root;
 
             xOffer.Should().NotBeNull();
             xOffer.Should().HaveAttribute("id", "12341");

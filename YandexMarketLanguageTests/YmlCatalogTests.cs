@@ -1,9 +1,10 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class YmlCatalogTests
@@ -23,7 +24,7 @@ namespace YandexMarketLanguage.Tests
 
             var serializer = new YmlSerializer();
 
-            var xYmlCatalog = serializer.Serialize(ymlCatalog);
+            var xYmlCatalog = serializer.ToXDocument(ymlCatalog);
 
             xYmlCatalog.Should().NotBeNull();
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -7,7 +8,7 @@ namespace YandexMarketLanguage
 {
     public class YmlSerializer
     {
-        public XDocument Serialize<T>(T model)
+        public XDocument ToXDocument<T>(T model)
         {
             var doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
 
@@ -30,5 +31,25 @@ namespace YandexMarketLanguage
 
             return doc;
         }
+
+        public string ToXmlString<T>(T model)
+        {
+            var doc = ToXDocument(model);
+            string xmlString;
+
+            using (var wr = new Utf8StringWriter())
+            {
+                doc.Save(wr);
+                xmlString = wr.GetStringBuilder().ToString();
+            }
+
+            return xmlString;
+        }
+    }
+
+    public sealed class Utf8StringWriter : StringWriter
+    {
+        // ReSharper disable once ConvertPropertyToExpressionBody
+        public override Encoding Encoding { get { return Encoding.UTF8; } }
     }
 }

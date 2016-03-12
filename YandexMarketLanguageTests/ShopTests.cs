@@ -1,12 +1,15 @@
 ﻿using System.Linq;
+using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
+
 // ReSharper disable UseCollectionCountProperty
 // ReSharper disable RedundantArgumentNameForLiteralExpression
 // ReSharper disable PossibleNullReferenceException
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class ShopTests
@@ -29,7 +32,7 @@ namespace YandexMarketLanguage.Tests
                 cpa = "0",
             };
 
-            var xShop = new YmlSerializer().Serialize(shop).Root;
+            var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().NotBeNull();
 
@@ -60,14 +63,14 @@ namespace YandexMarketLanguage.Tests
                 }, 
                 new category[0], new delivery_option[0], new offer[0]);
 
-            var xShop = new YmlSerializer().Serialize(shop).Root;
+            var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().NotBeNull();
 
             xShop.Should().HaveElement("currencies").Which.Should().HaveElement("currency");
 
             // ReSharper disable once PossibleNullReferenceException
-            var currencies = xShop.Element("currencies").Elements("currency").ToList();
+            var currencies = Enumerable.ToList<XElement>(xShop.Element("currencies").Elements("currency"));
             currencies.Count().Should().Be(2);
 
             foreach (var currency in currencies)
@@ -90,13 +93,13 @@ namespace YandexMarketLanguage.Tests
                 },
                 new delivery_option[0], new offer[0]);
 
-            var xShop = new YmlSerializer().Serialize(shop).Root;
+            var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().NotBeNull();
 
             xShop.Should().HaveElement("categories").Which.Should().HaveElement("category");
             // ReSharper disable once PossibleNullReferenceException
-            var categories = xShop.Element("categories").Elements("category").ToList();
+            var categories = Enumerable.ToList<XElement>(xShop.Element("categories").Elements("category"));
             categories.Count().Should().Be(2);
 
             foreach (var category in categories)
@@ -119,12 +122,12 @@ namespace YandexMarketLanguage.Tests
                 },
                 new offer[0]);
 
-            var xShop = new YmlSerializer().Serialize(shop).Root;
+            var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().NotBeNull();
 
             xShop.Should().HaveElement("delivery-options").Which.Should().HaveElement("option");
-            var delivery_options = xShop.Element("delivery-options").Elements("option").ToList();
+            var delivery_options = Enumerable.ToList<XElement>(xShop.Element("delivery-options").Elements("option"));
             delivery_options.Count().Should().Be(2);
 
             foreach (var deliveryOption in delivery_options)
@@ -146,10 +149,10 @@ namespace YandexMarketLanguage.Tests
                     new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663"),
                 });
 
-            var xShop = new YmlSerializer().Serialize(shop).Root;
+            var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().HaveElement("offers").Which.Should().HaveElement("offer");
-            var offers = xShop.Element("offers").Elements("offer").ToList();
+            var offers = Enumerable.ToList<XElement>(xShop.Element("offers").Elements("offer"));
             offers.Count().Should().Be(2);
             foreach (var offer in offers)
             {

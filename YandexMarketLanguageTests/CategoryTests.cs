@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class CategoryTests
@@ -12,7 +13,7 @@ namespace YandexMarketLanguage.Tests
         {
             var category = new category(1, "Книги");
 
-            var xCategory = new YmlSerializer().Serialize(category).Root;
+            var xCategory = new YmlSerializer().ToXDocument(category).Root;
 
             xCategory.Should().NotBeNull();
             xCategory.Should().HaveAttribute("id", "1");
@@ -24,7 +25,7 @@ namespace YandexMarketLanguage.Tests
         {
             var category = new category(2, "Детективы", 1);
 
-            var xCategory = new YmlSerializer().Serialize(category).Root;
+            var xCategory = new YmlSerializer().ToXDocument(category).Root;
 
             xCategory.Should().NotBeNull();
             xCategory.Should().HaveAttribute("id", "2");

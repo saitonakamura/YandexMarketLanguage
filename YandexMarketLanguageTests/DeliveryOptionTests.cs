@@ -1,11 +1,13 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
+
 // ReSharper disable RedundantArgumentNameForLiteralExpression
 // ReSharper disable RedundantArgumentName
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class DeliveryOptionTests
@@ -34,7 +36,7 @@ namespace YandexMarketLanguage.Tests
         {
             var deliveryOption = new delivery_option(300, 1);
 
-            var xDeliveryOption = new YmlSerializer().Serialize(deliveryOption).Root;
+            var xDeliveryOption = new YmlSerializer().ToXDocument(deliveryOption).Root;
 
             xDeliveryOption.Should().NotBeNull();
             xDeliveryOption.Should().HaveAttribute("cost", "300");
@@ -46,7 +48,7 @@ namespace YandexMarketLanguage.Tests
         {
             var deliveryOption = new delivery_option(cost: 0, workDaysFrom: 5, workDaysTo: 7, order_before: 14);
 
-            var xDeliveryOption = new YmlSerializer().Serialize(deliveryOption).Root;
+            var xDeliveryOption = new YmlSerializer().ToXDocument(deliveryOption).Root;
 
             xDeliveryOption.Should().NotBeNull();
             xDeliveryOption.Should().HaveAttribute("cost", "0");

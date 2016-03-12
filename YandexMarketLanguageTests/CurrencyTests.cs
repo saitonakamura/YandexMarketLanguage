@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
 
-namespace YandexMarketLanguage.Tests
+namespace YandexMarketLanguageTests
 {
     [TestFixture]
     public class CurrencyTests
@@ -12,7 +13,7 @@ namespace YandexMarketLanguage.Tests
         {
             var currency = new currency(CurrencyEnum.RUR, 1);
 
-            var xCurrency = new YmlSerializer().Serialize(currency).Root;
+            var xCurrency = new YmlSerializer().ToXDocument(currency).Root;
 
             xCurrency.Should().NotBeNull();
             xCurrency.Should().HaveAttribute("id", CurrencyEnum.RUR.ToString());
@@ -24,7 +25,7 @@ namespace YandexMarketLanguage.Tests
         {
             var currency = new currency(CurrencyEnum.EUR, RateEnum.CBRF);
 
-            var xCurrency = new YmlSerializer().Serialize(currency).Root;
+            var xCurrency = new YmlSerializer().ToXDocument(currency).Root;
 
             xCurrency.Should().NotBeNull();
             xCurrency.Should().HaveAttribute("id", CurrencyEnum.EUR.ToString());

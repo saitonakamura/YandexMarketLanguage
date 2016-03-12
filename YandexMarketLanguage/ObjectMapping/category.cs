@@ -37,6 +37,7 @@ namespace YandexMarketLanguage.ObjectMapping
         [XmlAttribute]
         public int id;
 
+        // ReSharper disable once MergeConditionalExpression
         [XmlAttribute]
         public string parentId { get { return parentIdField.HasValue ? parentIdField.Value.ToString() : null; } set { parentIdField = int.Parse(value); } }
 
