@@ -9,7 +9,7 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public category() { }
 
-        // TODO move to _field in constructor
+        // TODO rewrite to _field in constructor
         public category(int id, string name)
         {
             if (id <= 0)

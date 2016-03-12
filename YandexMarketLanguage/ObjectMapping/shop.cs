@@ -9,7 +9,7 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public shop() { }
 
-        // TODO move to _field in constructor
+        // TODO rewrite to _field in constructor
         public shop(string name, string company, string url, currency[] currencies, category[] categories, delivery_option[] delivery_options, offer[] offers)
         {
             this.name = name;

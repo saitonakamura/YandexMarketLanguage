@@ -10,14 +10,14 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public currency() { }
 
-        // TODO move to _field in constructor
+        // TODO rewrite to _field in constructor
         public currency(CurrencyEnum id, decimal rate)
         {
             this.id = id;
             this.rate = rate.ToString(CultureInfo.InvariantCulture);
         }
 
-        // TODO move to _field in constructor
+        // TODO rewrite to _field in constructor
         public currency(CurrencyEnum id, RateEnum rate)
         {
             this.id = id;

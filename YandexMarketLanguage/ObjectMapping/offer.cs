@@ -11,7 +11,7 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public offer() { }
 
-        // TODO move to _field in constructor
+        // TODO rewrite to _field in constructor
         public offer(string id, decimal price, CurrencyEnum currencyId, int categoryId, string name, string type = null, bool? available = null)
         {
             if (string.IsNullOrWhiteSpace(id))

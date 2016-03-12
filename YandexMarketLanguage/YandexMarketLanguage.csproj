@@ -44,12 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -59,9 +54,14 @@
     <Compile Include="ObjectMapping\offer.cs" />
     <Compile Include="ObjectMapping\shop.cs" />
     <Compile Include="ObjectMapping\yml_catalog.cs" />
+    <Compile Include="Tests\YmlCatalogTests.cs" />
+    <Compile Include="Tests\OfferTests.cs" />
+    <Compile Include="Tests\CurrencyTests.cs" />
+    <Compile Include="Tests\CategoryTests.cs" />
+    <Compile Include="Tests\DeliveryOptionTests.cs" />
     <Compile Include="Tests\IntegrationTests\IntegrationTests.cs" />
     <Compile Include="YmlSerializer.cs" />
-    <Compile Include="Tests\Tests.cs" />
+    <Compile Include="Tests\ShopTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
