@@ -6,18 +6,20 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class yml_catalog
     {
+        /// <summary>
+        /// DO NOT USE, need only for XmlSerializer
+        /// </summary>
         [Obsolete]
         public yml_catalog() { }
 
-        // TODO rewrite to _field in constructor
-        public yml_catalog(DateTime date, shop shop)
+        public yml_catalog(DateTime _date, shop _shop)
         {
             // ReSharper disable once UseNameofExpression
-            if (shop == null)
-                throw new ArgumentNullException("shop");
+            if (_shop == null)
+                throw new ArgumentNullException("_shop");
 
-            this.dateField = date;
-            this.shop = shop;
+            dateField = _date;
+            shop = _shop;
         }
 
         [XmlAttribute]

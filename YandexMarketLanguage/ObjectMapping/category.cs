@@ -6,32 +6,34 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class category
     {
+        /// <summary>
+        /// DO NOT USE, need only for XmlSerializer
+        /// </summary>
         [Obsolete]
         public category() { }
 
-        // TODO rewrite to _field in constructor
-        public category(int id, string name)
+        public category(int _id, string _name)
         {
-            if (id <= 0)
+            if (_id <= 0)
                 throw new ArgumentException("id must be > 0");
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(_name))
                 throw new ArgumentException("name must not be empty");
 
-            this.id = id;
-            this.name = name;
+            id = _id;
+            name = _name;
         }
 
-        public category(int id, string name, category parentCategory)
-            : this(id, name)
+        public category(int _id, string _name, category _parentCategory)
+            : this(_id, _name)
         {
-            this.parentIdField = parentCategory.id;
+            parentIdField = _parentCategory.id;
         }
 
-        public category(int id, string name, int parentId)
-            : this(id, name)
+        public category(int _id, string _name, int _parentId)
+            : this(_id, _name)
         {
-            this.parentIdField = parentId;
+            parentIdField = _parentId;
         }
 
         [XmlAttribute]

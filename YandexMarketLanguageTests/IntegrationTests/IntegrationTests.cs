@@ -5,6 +5,8 @@ using FluentAssertions;
 using NUnit.Framework;
 using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
+// ReSharper disable RedundantArgumentNameForLiteralExpression
+// ReSharper disable RedundantArgumentName
 
 namespace YandexMarketLanguageTests.IntegrationTests
 {
@@ -19,23 +21,23 @@ namespace YandexMarketLanguageTests.IntegrationTests
                 "http://best.seller.ru/",
                 new[]
                 {
-                    new currency(CurrencyEnum.RUR, 1),
+                    new currency(CurrencyEnum.RUR, _rate: 1),
                     new currency(CurrencyEnum.EUR, RateEnum.CBRF),
                 },
                 new[]
                 {
-                    new category(1, "Книги"),
-                    new category(2, "Детективы", 1),
+                    new category(_id: 1, _name: "Книги"),
+                    new category(_id: 2, _name: "Детективы", _parentId: 1),
                 },
                 new[]
                 {
-                    new delivery_option(300, 1),
-                    new delivery_option(0, 5, 7, 14),
+                    new delivery_option(_cost: 300, _workDays: 1),
+                    new delivery_option(_cost: 0, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: 14),
                 },
                 new[]
                 {
-                    new offer("12346", 600, CurrencyEnum.EUR, 1, "Наручные часы Casio A1234567B"),
-                    new offer("12341", 16800, CurrencyEnum.RUR, 2, "Принтер НP Deskjet D2663"),
+                    new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B"),
+                    new offer(_id: "12341", _price: 16800, _currencyId: CurrencyEnum.RUR, _categoryId: 2, _name: "Принтер НP Deskjet D2663"),
                 })
             {
                 platform = "CMS",
@@ -61,6 +63,7 @@ namespace YandexMarketLanguageTests.IntegrationTests
         private static string ReadXmlFromAssembly()
         {
             string xmlStringStandart;
+
             // ReSharper disable once AssignNullToNotNullAttribute
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("YandexMarketLanguageTests.IntegrationTests.standart.xml"))
             {
@@ -69,6 +72,7 @@ namespace YandexMarketLanguageTests.IntegrationTests
                     xmlStringStandart = reader.ReadToEnd();
                 }
             }
+
             return xmlStringStandart;
         }
     }

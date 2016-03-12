@@ -7,54 +7,54 @@ namespace YandexMarketLanguage.ObjectMapping
     [XmlType("option")]
     public class delivery_option
     {
+        /// <summary>
+        /// DO NOT USE, need only for XmlSerializer
+        /// </summary>
         [Obsolete]
         public delivery_option() { }
 
-        // TODO rewrite to _field in constructor
-        public delivery_option(int cost, int workDaysFrom, int workDaysTo, int? order_before = null)
-            : this(cost, order_before)
+        public delivery_option(int _cost, int _workDaysFrom, int _workDaysTo, int? _orderBefore = null)
+            : this(_cost, _orderBefore)
         {
-            if (workDaysFrom < 0)
+            if (_workDaysFrom < 0)
                 throw new ArgumentException("workDaysFrom must be >= 0");
 
-            if (workDaysTo < 0)
+            if (_workDaysTo < 0)
                 throw new ArgumentException("workDaysTo must be >= 0");
 
-            if (workDaysFrom >= workDaysTo)
+            if (_workDaysFrom >= _workDaysTo)
                 throw new ArgumentException("workDaysFrom must be < workDaysTo");
 
-            if ((workDaysTo - workDaysFrom) > 3)
+            if ((_workDaysTo - _workDaysFrom) > 3)
                 throw new ArgumentException("period between workDaysTo and workDaysFrom must be <= 3");
 
             // ReSharper disable once UseStringInterpolation
-            this.days = string.Format("{0}-{1}", workDaysFrom, workDaysTo);
+            days = string.Format("{0}-{1}", _workDaysFrom, _workDaysTo);
         }
 
-        // TODO rewrite to _field in constructor
-        public delivery_option(int cost, int workDays, int? order_before = null)
-            : this(cost, order_before)
+        public delivery_option(int _cost, int _workDays, int? _orderBefore = null)
+            : this(_cost, _orderBefore)
         {
-            if (workDays < 0)
+            if (_workDays < 0)
                 throw new ArgumentException("workDays must be >= 0");
 
-            this.days = workDays.ToString();
+            days = _workDays.ToString();
         }
 
-        // TODO rewrite to _field in constructor
-        private delivery_option(int cost, int? order_before = null)
+        private delivery_option(int _cost, int? _orderBefore = null)
         {
-            if (order_before.HasValue)
+            if (_orderBefore.HasValue)
             {
-                if (order_before.Value < 0 || order_before.Value > 24)
+                if (_orderBefore.Value < 0 || _orderBefore.Value > 24)
                     throw new ArgumentException("order_before must be between 0 and 24");
 
-                this.orderBeforeField = order_before.Value;
+                orderBeforeField = _orderBefore.Value;
             }
 
-            if (cost < 0)
+            if (_cost < 0)
                 throw new ArgumentException("cost must be >= 0");
 
-            this.cost = cost;
+            cost = _cost;
         }
 
         [XmlAttribute] 

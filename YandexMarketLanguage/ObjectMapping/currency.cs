@@ -7,21 +7,22 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class currency
     {
+        /// <summary>
+        /// DO NOT USE, need only for XmlSerializer
+        /// </summary>
         [Obsolete]
         public currency() { }
 
-        // TODO rewrite to _field in constructor
-        public currency(CurrencyEnum id, decimal rate)
+        public currency(CurrencyEnum _id, decimal _rate)
         {
-            this.id = id;
-            this.rate = rate.ToString(CultureInfo.InvariantCulture);
+            id = _id;
+            rate = _rate.ToString(CultureInfo.InvariantCulture);
         }
 
-        // TODO rewrite to _field in constructor
-        public currency(CurrencyEnum id, RateEnum rate)
+        public currency(CurrencyEnum _id, RateEnum _rate)
         {
-            this.id = id;
-            this.rate = rate.ToString();
+            id = _id;
+            rate = _rate.ToString();
         }
 
         [XmlAttribute]
@@ -37,7 +38,7 @@ namespace YandexMarketLanguage.ObjectMapping
         USD,
         EUR,
         UAH,
-        KZT,
+        KZT
     }
 
     public enum RateEnum
@@ -45,6 +46,6 @@ namespace YandexMarketLanguage.ObjectMapping
         CBRF,
         NBU,
         NBK,
-        СВ,
+        СВ
     }
 }

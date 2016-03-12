@@ -15,20 +15,20 @@ namespace YandexMarketLanguageTests
         [Test]
         public void TestDeliveryOptionConstructor()
         {
-            Constructor(() => new delivery_option(cost: -100, workDays: 1)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDays: -5)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: -100, _workDays: 1)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDays: -5)).ShouldThrow<ArgumentException>();
 
-            Constructor(() => new delivery_option(cost: -100, workDaysFrom: 5, workDaysTo: 7)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: -5, workDaysTo: 7)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: 5, workDaysTo: -7)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: 7, workDaysTo: 5)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: 7, workDaysTo: 50)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: -100, _workDaysFrom: 5, _workDaysTo: 7)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: -5, _workDaysTo: 7)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: -7)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 7, _workDaysTo: 5)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 7, _workDaysTo: 50)).ShouldThrow<ArgumentException>();
 
-            Constructor(() => new delivery_option(cost: 100, workDays: 5, order_before: -1)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDays: 5, order_before: -25)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: -1)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: -25)).ShouldThrow<ArgumentException>();
 
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: 5, workDaysTo: 7, order_before: -1)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(cost: 100, workDaysFrom: 5, workDaysTo: 7, order_before: -25)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -1)).ShouldThrow<ArgumentException>();
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -25)).ShouldThrow<ArgumentException>();
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace YandexMarketLanguageTests
         [Test]
         public void TestDeliveryOptionWithDaysPeriodAndOrderBefore()
         {
-            var deliveryOption = new delivery_option(cost: 0, workDaysFrom: 5, workDaysTo: 7, order_before: 14);
+            var deliveryOption = new delivery_option(_cost: 0, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: 14);
 
             var xDeliveryOption = new YmlSerializer().ToXDocument(deliveryOption).Root;
 

@@ -6,19 +6,21 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class shop
     {
+        /// <summary>
+        /// DO NOT USE, need only for XmlSerializer
+        /// </summary>
         [Obsolete]
         public shop() { }
 
-        // TODO rewrite to _field in constructor
-        public shop(string name, string company, string url, currency[] currencies, category[] categories, delivery_option[] delivery_options, offer[] offers)
+        public shop(string _name, string _company, string _url, currency[] _currencies, category[] _categories, delivery_option[] _deliveryOptions, offer[] _offers)
         {
-            this.name = name;
-            this.company = company;
-            this.url = url;
-            this.currencies = currencies;
-            this.categories = categories;
-            this.delivery_options = delivery_options;
-            this.offers = offers;
+            name = _name;
+            company = _company;
+            url = _url;
+            currencies = _currencies;
+            categories = _categories;
+            delivery_options = _deliveryOptions;
+            offers = _offers;
         }
 
         public string name;
