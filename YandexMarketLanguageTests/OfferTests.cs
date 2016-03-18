@@ -11,12 +11,12 @@ namespace YandexMarketLanguageTests
         [Test]
         public void TestOffer1()
         {
-            var _offer = new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B")
+            var offer = new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B")
             {
                 barcode = new[] { "423424", "43423423" },
             }; 
 
-            var xOffer = new YmlSerializer().ToXDocument(_offer).Root;
+            var xOffer = new YmlSerializer().ToXDocument(offer).Root;
 
             xOffer.Should().NotBeNull();
             xOffer.Should().HaveAttribute("id", "12346");

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -16,7 +14,7 @@ namespace YandexMarketLanguage
 
             // Yandex validator do not accept any foreign namespaces attributes so we must clear it
             var ns = new XmlSerializerNamespaces();
-            ns.Add(String.Empty, String.Empty);
+            ns.Add(string.Empty, string.Empty);
 
             var settings = new XmlWriterSettings
             {
@@ -52,6 +50,9 @@ namespace YandexMarketLanguage
     public sealed class Utf8StringWriter : StringWriter
     {
         // ReSharper disable once ConvertPropertyToExpressionBody
-        public override Encoding Encoding { get { return Encoding.UTF8; } }
+        public override Encoding Encoding
+        {
+            get { return Encoding.UTF8; }
+        }
     }
 }

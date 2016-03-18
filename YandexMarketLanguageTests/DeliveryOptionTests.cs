@@ -62,7 +62,7 @@ namespace YandexMarketLanguageTests
             xDeliveryOption.Should().HaveAttribute("order-before", "14");
         }
 
-        static Action Constructor<T>(Func<T> func)
+        public static Action Constructor<T>(Func<T> func)
         {
             return () => func();
         }

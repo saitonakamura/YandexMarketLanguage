@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using YandexMarketLanguage;
@@ -70,7 +69,7 @@ namespace YandexMarketLanguageTests
             xShop.Should().HaveElement("currencies").Which.Should().HaveElement("currency");
 
             // ReSharper disable once PossibleNullReferenceException
-            var currencies = Enumerable.ToList<XElement>(xShop.Element("currencies").Elements("currency"));
+            var currencies = xShop.Element("currencies").Elements("currency").ToList();
             currencies.Count().Should().Be(2);
 
             foreach (var currency in currencies)
@@ -99,7 +98,7 @@ namespace YandexMarketLanguageTests
 
             xShop.Should().HaveElement("categories").Which.Should().HaveElement("category");
             // ReSharper disable once PossibleNullReferenceException
-            var categories = Enumerable.ToList<XElement>(xShop.Element("categories").Elements("category"));
+            var categories = xShop.Element("categories").Elements("category").ToList();
             categories.Count().Should().Be(2);
 
             foreach (var category in categories)
@@ -127,16 +126,16 @@ namespace YandexMarketLanguageTests
             xShop.Should().NotBeNull();
 
             xShop.Should().HaveElement("delivery-options").Which.Should().HaveElement("option");
-            var delivery_options = Enumerable.ToList<XElement>(xShop.Element("delivery-options").Elements("option"));
-            delivery_options.Count().Should().Be(2);
+            var deliveryOptions = xShop.Element("delivery-options").Elements("option").ToList();
+            deliveryOptions.Count().Should().Be(2);
 
-            foreach (var deliveryOption in delivery_options)
+            foreach (var deliveryOption in deliveryOptions)
             {
                 deliveryOption.Attribute("cost").Should().NotBeNull();
             }
 
-            delivery_options.SingleOrDefault(x => x.Attribute("cost").Value == 300.ToString()).Should().NotBeNull();
-            delivery_options.SingleOrDefault(x => x.Attribute("cost").Value == 0.ToString()).Should().NotBeNull();
+            deliveryOptions.SingleOrDefault(x => x.Attribute("cost").Value == 300.ToString()).Should().NotBeNull();
+            deliveryOptions.SingleOrDefault(x => x.Attribute("cost").Value == 0.ToString()).Should().NotBeNull();
         }
 
         [Test]
@@ -152,7 +151,7 @@ namespace YandexMarketLanguageTests
             var xShop = new YmlSerializer().ToXDocument(shop).Root;
 
             xShop.Should().HaveElement("offers").Which.Should().HaveElement("offer");
-            var offers = Enumerable.ToList<XElement>(xShop.Element("offers").Elements("offer"));
+            var offers = xShop.Element("offers").Elements("offer").ToList();
             offers.Count().Should().Be(2);
             foreach (var offer in offers)
             {
