@@ -28,7 +28,7 @@
         <categoryId>1</categoryId>
         <name>Наручные часы Casio A1234567B</name>
       </offer>
-      <offer type="vendor.model" id="12341">
+      <offer id="12341" type="vendor.model">
         <price>16800</price>
         <currencyId>RUR</currencyId>
         <categoryId>2</categoryId>

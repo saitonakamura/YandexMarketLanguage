@@ -8,10 +8,10 @@ namespace YandexMarketLanguage.ObjectMapping
     public class currency
     {
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public currency() { }
+        public currency() {}
 
         public currency(CurrencyEnum _id, decimal _rate)
         {
@@ -26,10 +26,10 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         [XmlAttribute]
-        public CurrencyEnum id;
+        public CurrencyEnum id { get; set; }
 
         [XmlAttribute]
-        public string rate;
+        public string rate { get; set; }
     }
 
     public enum CurrencyEnum
