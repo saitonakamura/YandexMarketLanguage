@@ -74,19 +74,6 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
-        ///     array of delivery options
-        /// </summary>
-        [XmlArray("delivery-options", Order = 11)]
-        public delivery_option[] delivery_options { get; set; }
-
-        /// <summary>
-        ///     country of manufacturer
-        ///     https://yandex.st/market-export/97.0516af5f/partner/help/Countries.pdf
-        /// </summary>
-        [XmlElement(Order = 20)]
-        public string country_of_origin { get; set; }
-
-        /// <summary>
         ///     ID offer, attribute
         /// </summary>
         [XmlAttribute]
@@ -113,7 +100,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     Link on product (max length 512)
         /// </summary>
-        [XmlElement(Order = 1)]
         public string url
         {
             get { return _url; }
@@ -129,13 +115,11 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     Price of product
         /// </summary>
-        [XmlElement(Order = 2)]
         public decimal price { get; set; }
 
         /// <summary>
         ///     Old price of product (discount calculation)
         /// </summary>
-        [XmlElement(Order = 3)]
         public string oldprice
         {
             get { return _oldprice.HasValue ? _oldprice.ToString() : null; }
@@ -145,26 +129,22 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     Currency identifier product (RUR, USD, UAH, KZT)
         /// </summary>
-        [XmlElement(Order = 4)]
         public CurrencyEnum currencyId { get; set; }
 
         /// <summary>
         ///     Category identifier product
         /// </summary>
-        [XmlElement(Order = 5)]
         public int categoryId { get; set; }
 
         /// <summary>
         ///     Path to category of product
         ///     https://download.cdn.yandex.net/market/market_categories.xls
         /// </summary>
-        [XmlElement(Order = 6)]
         public string market_category { get; set; }
 
         /// <summary>
         ///     Picture link on product (max length 512)
         /// </summary>
-        [XmlElement(Order = 7)]
         public string picture
         {
             get { return _picture; }
@@ -180,7 +160,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     can be purchased in real store, bool
         /// </summary>
-        [XmlElement(Order = 8)]
         public string store
         {
             get { return _store.HasValue ? _store.ToString() : null; }
@@ -190,7 +169,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     can be reserved (pickup), bool
         /// </summary>
-        [XmlElement(Order = 9)]
         public string pickup
         {
             get { return _pickup.HasValue ? _pickup.ToString() : null; }
@@ -200,7 +178,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     can be delivered, bool
         /// </summary>
-        [XmlElement(Order = 10)]
         public string delivery
         {
             get { return _delivery.HasValue ? _delivery.ToString() : null; }
@@ -208,10 +185,15 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
+        ///     array of delivery options
+        /// </summary>
+        [XmlArray("delivery-options")]
+        public delivery_option[] delivery_options { get; set; }
+
+        /// <summary>
         ///     Name of product
         ///     <para>ONLY for simple offer</para>
         /// </summary>
-        [XmlElement(Order = 12)]
         public string name
         {
             get { return _name; }
@@ -228,7 +210,6 @@ namespace YandexMarketLanguage.ObjectMapping
         ///     Type / category of product
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 13)]
         public string typePrefix
         {
             get { return _typePrefix; }
@@ -244,20 +225,17 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     Vendor of product
         /// </summary>
-        [XmlElement(Order = 14)]
         public string vendor { get; set; }
 
         /// <summary>
         ///     Vendor code of product
         /// </summary>
-        [XmlElement(Order = 15)]
         public string vendorCode { get; set; }
 
         /// <summary>
         ///     Model of product
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 16)]
         public string model
         {
             get { return _model; }
@@ -273,7 +251,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     description of product (max length 175)
         /// </summary>
-        [XmlElement(Order = 17)]
         public string description
         {
             get { return _description; }
@@ -289,7 +266,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     the minimum order amount, minimum consignment, prepayment required (element required) (max length 50)
         /// </summary>
-        [XmlElement(Order = 18)]
         public string sales_notes
         {
             get { return _salesNotes; }
@@ -305,7 +281,6 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     has official manufacturer warranty, bool
         /// </summary>
-        [XmlElement(Order = 19)]
         public string manufacturer_warranty
         {
             get { return _manufacturerWarranty.HasValue ? _manufacturerWarranty.ToString() : null; }
@@ -313,10 +288,15 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
+        ///     country of manufacturer
+        ///     https://yandex.st/market-export/97.0516af5f/partner/help/Countries.pdf
+        /// </summary>
+        public string country_of_origin { get; set; }
+
+        /// <summary>
         ///     Downloadable product, bool
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 21)]
         public string downloadable
         {
             get { return _downloadable.HasValue ? _downloadable.ToString() : null; }
@@ -332,32 +312,28 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     sex related product
         /// </summary>
-        [XmlElement(Order = 22)]
         public string adult { get; set; }
 
         /// <summary>
         ///     age category of goods
         /// </summary>
-        [XmlElement(Order = 23)]
         public age age { get; set; }
 
         /// <summary>
         ///     array of manufacturer barcodes
         /// </summary>
-        [XmlElement("barcode", Order = 24)]
+        [XmlElement]
         public string[] barcode { get; set; }
 
         /// <summary>
         ///     can be purchased in yandex market (1 - true / 0 - false)
         /// </summary>
-        [XmlElement(Order = 25)]
         public string cpa { get; set; }
 
         /// <summary>
         ///     recommended products for purchase with this
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 26)]
         public string rec
         {
             get { return _rec; }
@@ -374,7 +350,6 @@ namespace YandexMarketLanguage.ObjectMapping
         ///     element indicates the expiration date / service life, ISO8601
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 27)]
         public string expiry
         {
             get { return _expiry; }
@@ -391,7 +366,6 @@ namespace YandexMarketLanguage.ObjectMapping
         ///     weight of product with packaging (kilograms, ex: 2.07)
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 28)]
         public string weight
         {
             get { return _weight; }
@@ -408,7 +382,6 @@ namespace YandexMarketLanguage.ObjectMapping
         ///     dimensions of product with packaging (centimeters, ex: 100/25.45/11.112)
         ///     <para>ONLY for vendor offer</para>
         /// </summary>
-        [XmlElement(Order = 29)]
         public string dimensions
         {
             get { return _dimensions; }
@@ -424,7 +397,7 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     array of product specifications
         /// </summary>
-        [XmlElement("param", Order = 30)]
+        [XmlElement]
         public param[] param { get; set; }
     }
 }
