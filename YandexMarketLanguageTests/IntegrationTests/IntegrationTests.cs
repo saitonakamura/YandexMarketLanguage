@@ -37,7 +37,16 @@ namespace YandexMarketLanguageTests.IntegrationTests
                 new[]
                 {
                     new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B"),
-                    new offer(_id: "12341", _price: 16800, _currencyId: CurrencyEnum.RUR, _categoryId: 2, _name: "Принтер НP Deskjet D2663"),
+                    new offer(_id: "12341", _price: 16800, _currencyId: CurrencyEnum.RUR, _categoryId: 2, _typePrefix: "Принтер", _vendor: "HP", _model: "Deskjet D2663")
+                    {
+                        vendorCode = "CH366C",
+                        param = new[]
+                        {
+                            new param("Максимальный формат", "A4"),
+                            new param("Максимальное разрешение для ч/б печати", "600x600", "dpi"), 
+                            new param("Плотность бумаги", "75-280", "г/м2"), 
+                        },
+                    },
                 })
             {
                 platform = "CMS",
@@ -59,7 +68,7 @@ namespace YandexMarketLanguageTests.IntegrationTests
 
             xmlStringFromObject.ShouldBeEquivalentTo(xmlStringStandart);
         }
-
+        
         private static string ReadXmlFromAssembly()
         {
             string xmlStringStandart;

@@ -28,11 +28,17 @@
         <categoryId>1</categoryId>
         <name>Наручные часы Casio A1234567B</name>
       </offer>
-      <offer id="12341">
+      <offer type="vendor.model" id="12341">
         <price>16800</price>
         <currencyId>RUR</currencyId>
         <categoryId>2</categoryId>
-        <name>Принтер НP Deskjet D2663</name>
+        <typePrefix>Принтер</typePrefix>
+        <vendor>HP</vendor>
+        <vendorCode>CH366C</vendorCode>
+        <model>Deskjet D2663</model>
+        <param name="Максимальный формат">A4</param>
+        <param name="Максимальное разрешение для ч/б печати" unit="dpi">600x600</param>
+        <param name="Плотность бумаги" unit="г/м2">75-280</param>
       </offer>
     </offers>
   </shop>

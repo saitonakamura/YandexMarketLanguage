@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,7 +16,7 @@ namespace YandexMarketLanguage
 
             // Yandex validator do not accept any foreign namespaces attributes so we must clear it
             var ns = new XmlSerializerNamespaces();
-            ns.Add("", "");
+            ns.Add(String.Empty, String.Empty);
 
             var settings = new XmlWriterSettings
             {

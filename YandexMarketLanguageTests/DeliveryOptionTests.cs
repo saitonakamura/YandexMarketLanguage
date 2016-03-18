@@ -20,7 +20,7 @@ namespace YandexMarketLanguageTests
 
             Constructor(() => new delivery_option(_cost: -100, _workDaysFrom: 5, _workDaysTo: 7)).ShouldThrow<ArgumentException>();
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: -5, _workDaysTo: 7)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: -7)).ShouldThrow<ArgumentException>();
+            
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 7, _workDaysTo: 5)).ShouldThrow<ArgumentException>();
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 7, _workDaysTo: 50)).ShouldThrow<ArgumentException>();
 
@@ -29,6 +29,12 @@ namespace YandexMarketLanguageTests
 
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -1)).ShouldThrow<ArgumentException>();
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -25)).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void DeliveryOptionContructor_GivenNegativeWorkDaysTo_ThrowsArgumentException()
+        {
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: -7)).ShouldThrow<ArgumentException>();
         }
 
         [Test]
