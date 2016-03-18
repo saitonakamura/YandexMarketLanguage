@@ -7,11 +7,13 @@ namespace YandexMarketLanguage.ObjectMapping
     [XmlType("option")]
     public class delivery_option
     {
+        private int? _orderBefore;
+
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public delivery_option() { }
+        public delivery_option() {}
 
         public delivery_option(int _cost, int _workDaysFrom, int _workDaysTo, int? _orderBefore = null)
             : this(_cost, _orderBefore)
@@ -25,7 +27,7 @@ namespace YandexMarketLanguage.ObjectMapping
             if (_workDaysFrom >= _workDaysTo)
                 throw new ArgumentException("workDaysFrom must be < workDaysTo");
 
-            if ((_workDaysTo - _workDaysFrom) > 3)
+            if (_workDaysTo - _workDaysFrom > 3)
                 throw new ArgumentException("period between workDaysTo and workDaysFrom must be <= 3");
 
             // ReSharper disable once UseStringInterpolation
@@ -48,7 +50,7 @@ namespace YandexMarketLanguage.ObjectMapping
                 if (_orderBefore.Value < 0 || _orderBefore.Value > 24)
                     throw new ArgumentException("order_before must be between 0 and 24");
 
-                orderBeforeField = _orderBefore.Value;
+                this._orderBefore = _orderBefore.Value;
             }
 
             if (_cost < 0)
@@ -57,16 +59,17 @@ namespace YandexMarketLanguage.ObjectMapping
             cost = _cost;
         }
 
-        [XmlAttribute] 
-        public int cost;
+        [XmlAttribute]
+        public int cost { get; set; }
 
-        [XmlAttribute] 
-        public string days;
+        [XmlAttribute]
+        public string days { get; set; }
 
         [XmlAttribute("order-before")]
-        public string order_before { get { return orderBeforeField.HasValue ? orderBeforeField.ToString() : null; } set { orderBeforeField = int.Parse(value); } }
-
-        [XmlIgnore]
-        public int? orderBeforeField;
+        public string order_before
+        {
+            get { return _orderBefore.HasValue ? _orderBefore.ToString() : null; }
+            set { _orderBefore = int.Parse(value); }
+        }
     }
 }

@@ -6,11 +6,13 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class category
     {
+        private int? _parentId;
+
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public category() { }
+        public category() {}
 
         public category(int _id, string _name)
         {
@@ -27,26 +29,27 @@ namespace YandexMarketLanguage.ObjectMapping
         public category(int _id, string _name, category _parentCategory)
             : this(_id, _name)
         {
-            parentIdField = _parentCategory.id;
+            _parentId = _parentCategory.id;
         }
 
         public category(int _id, string _name, int _parentId)
             : this(_id, _name)
         {
-            parentIdField = _parentId;
+            this._parentId = _parentId;
         }
 
         [XmlAttribute]
-        public int id;
+        public int id { get; set; }
 
         // ReSharper disable once MergeConditionalExpression
         [XmlAttribute]
-        public string parentId { get { return parentIdField.HasValue ? parentIdField.Value.ToString() : null; } set { parentIdField = int.Parse(value); } }
-
-        [XmlIgnore]
-        public int? parentIdField;
+        public string parentId
+        {
+            get { return _parentId.HasValue ? _parentId.Value.ToString() : null; }
+            set { _parentId = int.Parse(value); }
+        }
 
         [XmlText]
-        public string name;
+        public string name { get; set; }
     }
 }

@@ -6,11 +6,13 @@ namespace YandexMarketLanguage.ObjectMapping
     [Serializable]
     public class yml_catalog
     {
+        private DateTime _date;
+
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public yml_catalog() { }
+        public yml_catalog() {}
 
         public yml_catalog(DateTime _date, shop _shop)
         {
@@ -18,16 +20,17 @@ namespace YandexMarketLanguage.ObjectMapping
             if (_shop == null)
                 throw new ArgumentNullException("_shop");
 
-            dateField = _date;
+            this._date = _date;
             shop = _shop;
         }
 
         [XmlAttribute]
-        public string date { get { return dateField.ToString("yyyy-MM-dd HH:mm"); } set { dateField = DateTime.Parse(value); } }
+        public string date
+        {
+            get { return _date.ToString("yyyy-MM-dd HH:mm"); }
+            set { _date = DateTime.Parse(value); }
+        }
 
-        public shop shop;
-
-        [XmlIgnore]
-        public DateTime dateField;
+        public shop shop { get; set; }
     }
 }

@@ -7,10 +7,10 @@ namespace YandexMarketLanguage.ObjectMapping
     public class shop
     {
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public shop() { }
+        public shop() {}
 
         public shop(string _name, string _company, string _url, currency[] _currencies, category[] _categories, delivery_option[] _deliveryOptions, offer[] _offers)
         {
@@ -23,29 +23,29 @@ namespace YandexMarketLanguage.ObjectMapping
             offers = _offers;
         }
 
-        public string name;
+        public string name { get; set; }
 
-        public string company;
+        public string company { get; set; }
 
-        public string url;
+        public string url { get; set; }
 
-        public string platform;
+        public string platform { get; set; }
 
-        public string version;
+        public string version { get; set; }
 
-        public string agency;
+        public string agency { get; set; }
 
-        public string email;
+        public string email { get; set; }
 
-        public currency[] currencies;
+        public currency[] currencies { get; set; }
 
-        public category[] categories;
+        public category[] categories { get; set; }
 
         [XmlArray("delivery-options")]
-        public delivery_option[] delivery_options;
+        public delivery_option[] delivery_options { get; set; }
 
-        public string cpa;
+        public string cpa { get; set; }
 
-        public offer[] offers;
+        public offer[] offers { get; set; }
     }
 }

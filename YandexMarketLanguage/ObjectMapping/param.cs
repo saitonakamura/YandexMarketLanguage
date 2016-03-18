@@ -4,19 +4,19 @@ using System.Xml.Serialization;
 namespace YandexMarketLanguage.ObjectMapping
 {
     /// <summary>
-    /// Goods specification
+    ///     Goods specification
     /// </summary>
     [Serializable]
     public class param
     {
         /// <summary>
-        /// DO NOT USE, need only for XmlSerializer
+        ///     DO NOT USE, need only for XmlSerializer
         /// </summary>
         [Obsolete]
-        public param() { }
+        public param() {}
 
         /// <summary>
-        /// Goods specification
+        ///     Goods specification
         /// </summary>
         public param(string _name)
         {
@@ -24,7 +24,7 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
-        /// Goods specification
+        ///     Goods specification
         /// </summary>
         public param(string _name, string _value)
         {
@@ -33,7 +33,7 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
-        /// Goods specification
+        ///     Goods specification
         /// </summary>
         public param(string _name, string _value, string _unit)
         {
@@ -43,21 +43,21 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
-        /// name of specification
+        ///     name of specification
         /// </summary>
         [XmlAttribute]
-        public string name;
-        
-        /// <summary>
-        /// unit of measurement
-        /// </summary>
-        [XmlAttribute]
-        public string unit;
+        public string name { get; set; }
 
         /// <summary>
-        /// value 
+        ///     unit of measurement
+        /// </summary>
+        [XmlAttribute]
+        public string unit { get; set; }
+
+        /// <summary>
+        ///     value
         /// </summary>
         [XmlText]
-        public string value;
+        public string value { get; set; }
     }
 }
