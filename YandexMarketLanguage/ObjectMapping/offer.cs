@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace YandexMarketLanguage.ObjectMapping
 {
-    //TODO more test
+    //TODO more tests?
     //TODO url required?
     /// <summary>
     ///     Product offer

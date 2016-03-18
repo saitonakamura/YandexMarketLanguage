@@ -13,16 +13,6 @@ namespace YandexMarketLanguageTests
     public class DeliveryOptionTests
     {
         [Test]
-        public void TestDeliveryOptionConstructor()
-        {
-            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: -1)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: -25)).ShouldThrow<ArgumentException>();
-
-            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -1)).ShouldThrow<ArgumentException>();
-            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -25)).ShouldThrow<ArgumentException>();
-        }
-
-        [Test]
         public void DeliveryOptionContructor_GivenNegativeWorkDaysTo_ThrowsArgumentException()
         {
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: -7)).ShouldThrow<ArgumentException>();
@@ -59,9 +49,33 @@ namespace YandexMarketLanguageTests
         }
 
         [Test]
-        public void DeliveryOptionContructor_Given_ThrowsArgumentException()
+        public void DeliveryOptionContructor_GivenWorkDaysPeriodGreaterThan3_ThrowsArgumentException()
         {
             Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 7, _workDaysTo: 50)).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void DeliveryOptionContructor_GivenNegativeOrderBeforeWithWorkDays_ThrowsArgumentException()
+        {
+            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: -1)).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void DeliveryOptionContructor_GivenOrderBeforeBiggerThan24WithWorkDays_ThrowsArgumentException()
+        {
+            Constructor(() => new delivery_option(_cost: 100, _workDays: 5, _orderBefore: 25)).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void DeliveryOptionContructor_GivenNegativeOrderBeforeWithWorkDaysPeriod_ThrowsArgumentException()
+        {
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: -1)).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void DeliveryOptionContructor_GivenNegativeBiggerThan24WithWorkDaysPeriod_ThrowsArgumentException()
+        {
+            Constructor(() => new delivery_option(_cost: 100, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: 25)).ShouldThrow<ArgumentException>();
         }
 
         [Test]
