@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using YandexMarketLanguage;
@@ -11,7 +12,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class ShopTests
+    public class ShopTests : BasicTest
     {
         [Test]
         public void TestShopSimpleAttributes()
@@ -144,8 +145,8 @@ namespace YandexMarketLanguageTests
             var shop = new shop("BestShop", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], 
                 new[]
                 {
-                    new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B"), 
-                    new offer(_id: "12341", _price: 16800, _currencyId: CurrencyEnum.RUR, _categoryId: 2, _typePrefix: "Принтер", _vendor: "HP", _model: "Deskjet D2663"), 
+                    new offer(id: "12346", price: 600, currencyId: CurrencyEnum.EUR, categoryId: 1, name: "Наручные часы Casio A1234567B"), 
+                    new offer(id: "12341", price: 16800, currencyId: CurrencyEnum.RUR, categoryId: 2, typePrefix: "Принтер", vendor: "HP", model: "Deskjet D2663"), 
                 });
 
             var xShop = new YmlSerializer().ToXDocument(shop).Root;
@@ -162,7 +163,95 @@ namespace YandexMarketLanguageTests
             offers.SingleOrDefault(x => x.Attribute("id").Value == 12341.ToString()).Should().NotBeNull();
         }
 
-        
+        [Test]
+        public void ShopConstructor_GivenNullName_ThrowsArgumentException()
+        {
+            Constructor(() => new shop(null, "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
 
+        [Test]
+        public void ShopConstructor_GivenEmptyName_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenWhitespaceName_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("   ", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullCompany_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", null, "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenEmptyCompany_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenWhitespaceCompany_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "   ", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullUrl_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", null, new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenEmptyUrl_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenWhitespaceUrl_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "    ", new currency[0], new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullCurrencies_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "http://best.seller.ru/", null, new category[0], new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullCategories_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], null, new delivery_option[0], new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullDeliveryOptions_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], null, new offer[0]))
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void ShopConstructor_GivenNullOffers_ThrowsArgumentException()
+        {
+            Constructor(() => new shop("BestShop", "Best online seller Inc.", "http://best.seller.ru/", new currency[0], new category[0], new delivery_option[0], null))
+                .ShouldThrow<ArgumentException>();
+        }
     }
 }

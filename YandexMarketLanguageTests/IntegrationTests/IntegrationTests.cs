@@ -21,23 +21,23 @@ namespace YandexMarketLanguageTests.IntegrationTests
                 "http://best.seller.ru/",
                 new[]
                 {
-                    new currency(CurrencyEnum.RUR, _rate: 1),
+                    new currency(CurrencyEnum.RUR, rate: 1),
                     new currency(CurrencyEnum.EUR, RateEnum.CBRF),
                 },
                 new[]
                 {
-                    new category(_id: 1, _name: "Книги"),
-                    new category(_id: 2, _name: "Детективы", _parentId: 1),
+                    new category(id: 1, name: "Книги"),
+                    new category(id: 2, name: "Детективы", parentId: 1),
                 },
                 new[]
                 {
-                    new delivery_option(_cost: 300, _workDays: 1),
-                    new delivery_option(_cost: 0, _workDaysFrom: 5, _workDaysTo: 7, _orderBefore: 14),
+                    new delivery_option(cost: 300, workDays: 1),
+                    new delivery_option(cost: 0, workDaysFrom: 5, workDaysTo: 7, orderBefore: 14),
                 },
                 new[]
                 {
-                    new offer(_id: "12346", _price: 600, _currencyId: CurrencyEnum.EUR, _categoryId: 1, _name: "Наручные часы Casio A1234567B"),
-                    new offer(_id: "12341", _price: 16800, _currencyId: CurrencyEnum.RUR, _categoryId: 2, _typePrefix: "Принтер", _vendor: "HP", _model: "Deskjet D2663")
+                    new offer(id: "12346", price: 600, currencyId: CurrencyEnum.EUR, categoryId: 1, name: "Наручные часы Casio A1234567B"),
+                    new offer(id: "12341", price: 16800, currencyId: CurrencyEnum.RUR, categoryId: 2, typePrefix: "Принтер", vendor: "HP", model: "Deskjet D2663")
                     {
                         vendorCode = "CH366C",
                         param = new[]

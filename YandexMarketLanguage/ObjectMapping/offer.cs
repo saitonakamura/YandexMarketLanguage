@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace YandexMarketLanguage.ObjectMapping
@@ -39,38 +40,39 @@ namespace YandexMarketLanguage.ObjectMapping
         /// <summary>
         ///     DO NOT USE, need only for others constructors
         /// </summary>
-        private offer(string _id, decimal _price, CurrencyEnum _currencyId, int _categoryId)
+        private offer(string id, decimal price, CurrencyEnum currencyId, int categoryId)
         {
-            if (string.IsNullOrWhiteSpace(_id))
+            if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("id must not be empty");
 
-            id = _id;
+            this.id = id;
 
-            price = _price;
-            currencyId = _currencyId;
-            categoryId = _categoryId;
+            this.price = price;
+            this.currencyId = currencyId;
+            this.categoryId = categoryId;
         }
 
         /// <summary>
         ///     Product simple offer
         /// </summary>
-        public offer(string _id, decimal _price, CurrencyEnum _currencyId, int _categoryId, string _name)
-            : this(_id, _price, _currencyId, _categoryId)
+        public offer(string id, decimal price, CurrencyEnum currencyId, int categoryId, string name)
+            : this(id, price, currencyId, categoryId)
         {
-            name = _name;
+            this.name = name;
         }
 
         /// <summary>
         ///     Product vendor offer
         /// </summary>
-        public offer(string _id, decimal _price, CurrencyEnum _currencyId, int _categoryId, string _typePrefix, string _vendor, string _model)
-            : this(_id, _price, _currencyId, _categoryId)
+        [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+        public offer(string id, decimal price, CurrencyEnum currencyId, int categoryId, string typePrefix, string vendor, string model)
+            : this(id, price, currencyId, categoryId)
         {
-            type = "vendor.model";
+            this.type = "vendor.model";
 
-            typePrefix = _typePrefix;
-            vendor = _vendor;
-            model = _model;
+            this.typePrefix = typePrefix;
+            this.vendor = vendor;
+            this.model = model;
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ namespace YandexMarketLanguage.ObjectMapping
     public class yml_catalog
     {
         private DateTime _date;
+        private shop _shop;
 
         /// <summary>
         ///     DO NOT USE, need only for XmlSerializer
@@ -14,14 +15,10 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public yml_catalog() {}
 
-        public yml_catalog(DateTime _date, shop _shop)
+        public yml_catalog(DateTime date, shop shop)
         {
-            // ReSharper disable once UseNameofExpression
-            if (_shop == null)
-                throw new ArgumentNullException("_shop");
-
-            this._date = _date;
-            shop = _shop;
+            this._date = date;
+            this.shop = shop;
         }
 
         [XmlAttribute]
@@ -31,6 +28,16 @@ namespace YandexMarketLanguage.ObjectMapping
             set { _date = DateTime.Parse(value); }
         }
 
-        public shop shop { get; set; }
+        public shop shop
+        {
+            get { return _shop; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+
+                _shop = value;
+            }
+        }
     }
 }

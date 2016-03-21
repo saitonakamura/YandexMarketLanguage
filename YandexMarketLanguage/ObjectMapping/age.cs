@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -8,6 +9,8 @@ namespace YandexMarketLanguage.ObjectMapping
     ///     Age category of goods
     /// </summary>
     [Serializable]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+    // TODO tests for age
     public class age
     {
         private readonly int[] _allowedYear = { 0, 6, 12, 16, 18 };

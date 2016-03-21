@@ -6,10 +6,10 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class CurrencyTests
+    public class CurrencyTests : BasicTest
     {
         [Test]
-        public void TestCurrencyWithNumericRate()
+        public void Currency_GivenValuesWithNumericRateAndConvertedToXDocument_PersistsValues()
         {
             var currency = new currency(CurrencyEnum.RUR, 1);
 
@@ -21,7 +21,7 @@ namespace YandexMarketLanguageTests
         }
 
         [Test]
-        public void TestCurrencyWithEnumRate()
+        public void Currency_GivenValuesWithEnumRateAndConvertedToXDocument_PersistsValues()
         {
             var currency = new currency(CurrencyEnum.EUR, RateEnum.CBRF);
 
@@ -30,6 +30,19 @@ namespace YandexMarketLanguageTests
             xCurrency.Should().NotBeNull();
             xCurrency.Should().HaveAttribute("id", CurrencyEnum.EUR.ToString());
             xCurrency.Should().HaveAttribute("rate", RateEnum.CBRF.ToString());
+        }
+
+        [Test]
+        public void Currency_GivenValuesWithEnumRateAndPlusAndConvertedToXDocument_PersistsValues()
+        {
+            var currency = new currency(CurrencyEnum.EUR, RateEnum.CBRF, plus: 3);
+
+            var xCurrency = new YmlSerializer().ToXDocument(currency).Root;
+
+            xCurrency.Should().NotBeNull();
+            xCurrency.Should().HaveAttribute("id", CurrencyEnum.EUR.ToString());
+            xCurrency.Should().HaveAttribute("rate", RateEnum.CBRF.ToString());
+            xCurrency.Should().HaveAttribute("plus", 3.ToString());
         }
     }
 }

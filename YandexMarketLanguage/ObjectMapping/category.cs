@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace YandexMarketLanguage.ObjectMapping
 {
     [Serializable]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
     public class category
     {
         private int? _parentId;
+        private int _id;
+        private string _name;
 
         /// <summary>
         ///     DO NOT USE, need only for XmlSerializer
@@ -14,32 +18,36 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public category() {}
 
-        public category(int _id, string _name)
+        public category(int id, string name)
         {
-            if (_id <= 0)
-                throw new ArgumentException("id must be > 0");
-
-            if (string.IsNullOrWhiteSpace(_name))
-                throw new ArgumentException("name must not be empty");
-
-            id = _id;
-            name = _name;
+            this.id = id;
+            this.name = name;
         }
 
-        public category(int _id, string _name, category _parentCategory)
-            : this(_id, _name)
+        public category(int id, string name, category parentCategory)
+            : this(id, name)
         {
-            _parentId = _parentCategory.id;
+            this._parentId = parentCategory.id;
         }
 
-        public category(int _id, string _name, int _parentId)
-            : this(_id, _name)
+        public category(int id, string name, int parentId)
+            : this(id, name)
         {
-            this._parentId = _parentId;
+            this._parentId = parentId;
         }
 
         [XmlAttribute]
-        public int id { get; set; }
+        public int id
+        {
+            get { return _id; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("id must be > 0");
+
+                _id = value;
+            }
+        }
 
         // ReSharper disable once MergeConditionalExpression
         [XmlAttribute]
@@ -50,6 +58,16 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         [XmlText]
-        public string name { get; set; }
+        public string name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("name must not be empty");
+
+                _name = value;
+            }
+        }
     }
 }
