@@ -7,7 +7,6 @@ namespace YandexMarketLanguage.ObjectMapping
     ///     Goods specification
     /// </summary>
     [Serializable]
-    // TODO tests for param
     public class param
     {
         private string _name;
