@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -20,35 +21,29 @@ namespace YandexMarketLanguage.ObjectMapping
         public age() {}
 
         /// <summary>
-        ///     age category of goods, unit must be 'year' or 'month'
+        ///     age category of goods
         /// </summary>
-        public age(string _unit)
+        [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+        public age(AgeUnit unit)
         {
-            if (_unit != "year" && _unit != "month")
-                throw new ArgumentException("unit must be 'year' or 'month'");
-
-            unit = _unit;
+            this.unit = unit;
         }
 
         /// <summary>
-        ///     age category of goods, unit must be 'year' or 'month'
-        ///     <para>allowed int values for unit 'year' 0, 6, 12, 16, 18</para>
-        ///     <para>allowed int values for unit 'month' in range between 0 and 12</para>
+        ///     age category of goods
         /// </summary>
-        public age(string _unit, int _value)
+        [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
+        public age(AgeUnit unit, int value)
         {
-            if (_unit != "year" && _unit != "month")
-                throw new ArgumentException("unit must be 'year' or 'month'");
-
-            unit = _unit;
-            value = _value;
+            this.unit = unit;
+            this.value = value;
         }
 
         /// <summary>
-        ///     age unit, allowed values 'year' or 'month'
+        ///     age unit
         /// </summary>
         [XmlAttribute]
-        public string unit { get; set; }
+        public AgeUnit unit { get; set; }
 
         /// <summary>
         ///     allowed int values for unit 'year' 0, 6, 12, 16, 18,
@@ -60,14 +55,28 @@ namespace YandexMarketLanguage.ObjectMapping
             get { return _value; }
             set
             {
-                if (unit == "year" && !_allowedYear.Contains(value))
-                    throw new ArgumentException("allowed int values for unit 'year' 0, 6, 12, 16, 18");
-
-                if (unit == "month" && Enumerable.Range(0, 12).Contains(value))
-                    throw new ArgumentException("allowed int values for unit 'month' in range between 0 and 12");
+                switch (unit)
+                {
+                    case AgeUnit.year:
+                        if (_allowedYear.Contains(value) == false)
+                            throw new ArgumentException("allowed int values for unit 'year' 0, 6, 12, 16, 18");
+                        break;
+                    case AgeUnit.month:
+                        if (Enumerable.Range(0, 12).Contains(value) == false)
+                            throw new ArgumentException("allowed int values for unit 'month' in range between 0 and 12");
+                        break;
+                }
 
                 _value = value;
             }
         }
+    }
+
+    public enum AgeUnit
+    {
+        // ReSharper disable once InconsistentNaming
+        year,
+        // ReSharper disable once InconsistentNaming
+        month,
     }
 }

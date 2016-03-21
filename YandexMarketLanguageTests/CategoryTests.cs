@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using YandexMarketLanguage;
 using YandexMarketLanguage.ObjectMapping;
@@ -6,10 +7,10 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class CategoryTests
+    public class CategoryTests : BasicTests
     {
         [Test]
-        public void TestCategoryWithoutParent()
+        public void Category_GivenAttributesAndConvertedToXDocument_PersistValues()
         {
             var category = new category(1, "Книги");
 
@@ -21,7 +22,7 @@ namespace YandexMarketLanguageTests
         }
 
         [Test]
-        public void TestCategoryWithParent()
+        public void Category_GivenAttributesWithParentCategoryAndConvertedToXDocument_PersistValues()
         {
             var category = new category(2, "Детективы", 1);
 
@@ -31,6 +32,46 @@ namespace YandexMarketLanguageTests
             xCategory.Should().HaveAttribute("id", "2");
             xCategory.Should().HaveAttribute("parentId", "1");
             xCategory.Should().HaveValue("Детективы");
+        }
+
+        [Test]
+        public void CategoryId_GivenNegativeValue_ThrowsArgumentException()
+        {
+            var category = new category(1, "Детективы");
+
+            Call(() => { category.id = -1; }).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void CategoryId_GivenZeroValue_ThrowsArgumentException()
+        {
+            var category = new category(1, "Детективы");
+
+            Call(() => { category.id = 0; }).ShouldThrow<ArgumentException>();
+        }
+
+        [Test] 
+        public void CategoryName_GivenNullString_ThrowsArgumentException()
+        {
+            var category = new category(1, "Детективы");
+
+            Call(() => { category.name = null; }).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void CategoryName_GivenEmptyString_ThrowsArgumentException()
+        {
+            var category = new category(1, "Детективы");
+
+            Call(() => { category.name = ""; }).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void CategoryName_GivenWhitespaceString_ThrowsArgumentException()
+        {
+            var category = new category(1, "Детективы");
+
+            Call(() => { category.name = "     "; }).ShouldThrow<ArgumentException>();
         }
     }
 }
