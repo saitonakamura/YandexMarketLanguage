@@ -13,8 +13,10 @@ namespace YandexMarketLanguageTests.IntegrationTests
     [TestFixture]
     public class IntegrationTests
     {
-        [Test]
-        public void Test()
+        private yml_catalog _ymlCatalog;
+
+        [SetUp]
+        public void SetUp()
         {
             var shop = new shop("BestShop",
                 "Best online seller Inc.",
@@ -56,9 +58,13 @@ namespace YandexMarketLanguageTests.IntegrationTests
                 cpa = "0",
             };
 
-            var ymlCatalog = new yml_catalog(new DateTime(2010, 04, 01, 17, 05, 00), shop);
+            _ymlCatalog = new yml_catalog(new DateTime(2010, 04, 01, 17, 05, 00), shop);
+        }
 
-            var xmlStringFromObject = new YmlSerializer().ToXmlString(ymlCatalog);
+        [Test]
+        public void YmlSerializer_ToXmlString_Test()
+        {
+            var xmlStringFromObject = new YmlSerializer().ToXmlString(_ymlCatalog);
 
             xmlStringFromObject.Should().NotBeNullOrWhiteSpace();
 
@@ -67,6 +73,16 @@ namespace YandexMarketLanguageTests.IntegrationTests
             xmlStringStandart.Should().NotBeNullOrWhiteSpace();
 
             xmlStringFromObject.ShouldBeEquivalentTo(xmlStringStandart);
+        }
+
+        [Test]
+        public void YmlSerializer_FromXmlString_Test()
+        {
+            var xmlStringStandart = ReadXmlFromAssembly();
+
+            var ymlCatalog = new YmlSerializer().FromXmlString<yml_catalog>(xmlStringStandart);
+
+            ymlCatalog.ShouldBeEquivalentTo(_ymlCatalog);
         }
         
         private static string ReadXmlFromAssembly()

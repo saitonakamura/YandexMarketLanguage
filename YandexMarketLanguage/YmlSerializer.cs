@@ -45,6 +45,19 @@ namespace YandexMarketLanguage
 
             return xmlString;
         }
+
+        public T FromXmlString<T>(string xmlString)
+        {
+            T model;
+
+            using (var reader = new StringReader(xmlString))
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                model = (T)serializer.Deserialize(reader);
+            }
+
+            return model;
+        }
     }
 
     public sealed class Utf8StringWriter : StringWriter
