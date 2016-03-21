@@ -7,7 +7,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class CategoryTests : BasicTest
+    public class CategoryTests : BasicTests
     {
         [Test]
         public void Category_GivenAttributesAndConvertedToXDocument_PersistValues()

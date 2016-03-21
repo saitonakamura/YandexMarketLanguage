@@ -12,7 +12,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class ShopTests : BasicTest
+    public class ShopTests : BasicTests
     {
         [Test]
         public void TestShopSimpleAttributes()

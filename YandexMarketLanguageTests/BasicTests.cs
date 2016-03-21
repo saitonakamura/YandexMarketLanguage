@@ -2,7 +2,7 @@
 
 namespace YandexMarketLanguageTests
 {
-    public class BasicTest
+    public class BasicTests
     {
         public static Action Call(Action func)
         {

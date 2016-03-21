@@ -18,6 +18,7 @@ namespace YandexMarketLanguage.ObjectMapping
         private string _dimensions;
         private bool? _downloadable;
         private string _expiry;
+        private string _id;
         private bool? _manufacturerWarranty;
         private string _model;
         private string _name;
@@ -37,16 +38,9 @@ namespace YandexMarketLanguage.ObjectMapping
         [Obsolete]
         public offer() {}
 
-        /// <summary>
-        ///     DO NOT USE, need only for others constructors
-        /// </summary>
         private offer(string id, decimal price, CurrencyEnum currencyId, int categoryId)
         {
-            if (string.IsNullOrWhiteSpace(id))
-                throw new ArgumentException("id must not be empty");
-
             this.id = id;
-
             this.price = price;
             this.currencyId = currencyId;
             this.categoryId = categoryId;
@@ -79,7 +73,17 @@ namespace YandexMarketLanguage.ObjectMapping
         ///     ID offer, attribute
         /// </summary>
         [XmlAttribute]
-        public string id { get; set; }
+        public string id
+        {
+            get { return _id; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("id must not be empty");
+
+                _id = value;
+            }
+        }
 
         /// <summary>
         ///     Type of offer (simple or vendor), attribute

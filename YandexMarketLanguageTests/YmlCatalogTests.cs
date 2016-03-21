@@ -7,7 +7,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class YmlCatalogTests : BasicTest
+    public class YmlCatalogTests : BasicTests
     {
         [Test]
         public void TestYmlCatalog()

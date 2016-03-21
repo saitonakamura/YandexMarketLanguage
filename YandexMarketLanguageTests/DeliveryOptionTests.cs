@@ -10,7 +10,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class DeliveryOptionTests : BasicTest
+    public class DeliveryOptionTests : BasicTests
     {
         [Test]
         public void DeliveryOption_GivenCostAndDays_HaveValuesInXml()

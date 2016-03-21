@@ -8,7 +8,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class OfferTests : BasicTest
+    public class OfferTests : BasicTests
     {
         [Test]
         public void OfferSimple_GivenRequiredParameters_ShouldHaveRightProperties()
@@ -54,6 +54,7 @@ namespace YandexMarketLanguageTests
             var xOffer = new YmlSerializer().ToXDocument(offer).Root;
 
             xOffer.Should().HaveElement("barcode");
+            // ReSharper disable once PossibleNullReferenceException
             xOffer.Descendants("barcode").Count().Should().Be(3);
         }
 
@@ -86,6 +87,14 @@ namespace YandexMarketLanguageTests
                               "вариантов оплаты, описания акций и распродаж " +
                               "(указание элемента необязательно)",
             }).ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void OfferId_GivenInvalidId_ThrowsArgumentException()
+        {
+            var offer = new offer(id: "12346", price: 600, currencyId: CurrencyEnum.EUR, categoryId: 1, name: "Наручные часы");
+
+            Call(() => offer.id = null).ShouldThrow<ArgumentException>();
         }
     }
 }

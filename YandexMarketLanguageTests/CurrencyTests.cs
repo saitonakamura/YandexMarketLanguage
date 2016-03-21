@@ -6,7 +6,7 @@ using YandexMarketLanguage.ObjectMapping;
 namespace YandexMarketLanguageTests
 {
     [TestFixture]
-    public class CurrencyTests : BasicTest
+    public class CurrencyTests : BasicTests
     {
         [Test]
         public void Currency_GivenValuesWithNumericRateAndConvertedToXDocument_PersistsValues()
