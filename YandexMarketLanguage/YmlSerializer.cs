@@ -32,6 +32,20 @@ namespace YandexMarketLanguage
             return doc;
         }
 
+        public XmlDocument ToXmlDocument<T>(T model)
+        {
+            var doc = ToXDocument(model);
+
+            var xmlDocument = new XmlDocument();
+
+            using (var xmlReader = doc.CreateReader())
+            {
+                xmlDocument.Load(xmlReader);
+            }
+
+            return xmlDocument;
+        }
+
         public string ToXmlString<T>(T model)
         {
             var doc = ToXDocument(model);
