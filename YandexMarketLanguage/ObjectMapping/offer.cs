@@ -111,7 +111,7 @@ namespace YandexMarketLanguage.ObjectMapping
             get { return _url; }
             set
             {
-                if (value.Length > 512)
+                if (value != null && value.Length > 512)
                     throw new ArgumentException("max URL length 512");
 
                 _url = url;
@@ -156,7 +156,7 @@ namespace YandexMarketLanguage.ObjectMapping
             get { return _picture; }
             set
             {
-                if (value.Length > 512)
+                if (value != null && value.Length > 512)
                     throw new ArgumentException("max URL length 512");
 
                 _picture = value;
@@ -255,16 +255,13 @@ namespace YandexMarketLanguage.ObjectMapping
         }
 
         /// <summary>
-        ///     description of product (max length 175)
+        ///     description of product
         /// </summary>
         public string description
         {
             get { return _description; }
             set
             {
-                if (value.Length > 175)
-                    throw new ArgumentException("max description length 175");
-
                 _description = value;
             }
         }
